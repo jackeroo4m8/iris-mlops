@@ -1,0 +1,133 @@
+2026-01-19 14:10:44,842 | INFO | src.api | API initialized
+2026-01-19 14:10:52,234 | INFO | src.api | API initialized
+2026-01-19 14:18:44,230 | INFO | src.api | API initialized
+2026-01-19 14:19:02,094 | INFO | src.api | API initialized
+2026-01-19 14:19:55,283 | INFO | src.api | API initialized
+2026-01-19 14:20:02,481 | INFO | src.api | API initialized
+2026-01-19 15:20:52,810 | INFO | src.api | API initialized
+2026-01-19 15:21:01,973 | INFO | src.api | API initialized
+2026-01-19 15:22:23,150 | INFO | src.api | API initialized
+2026-01-19 15:22:43,155 | INFO | src.api | API initialized
+2026-01-19 15:22:48,226 | INFO | src.api | API initialized
+2026-01-19 15:23:01,815 | INFO | src.api | API initialized
+2026-01-19 15:24:59,582 | INFO | src.api | API initialized
+2026-01-19 15:25:39,434 | INFO | src.api | API initialized
+2026-01-19 15:30:02,606 | INFO | src.api | API initialized
+2026-01-19 15:31:03,760 | INFO | src.api | API initialized
+2026-01-19 22:02:05,326 | INFO | src.api | API initialized
+2026-01-19 22:02:25,891 | INFO | src.api | API initialized
+2026-01-20 10:16:30,317 | INFO | src.api | API initialized
+2026-01-20 10:16:55,990 | INFO | src.api | API initialized
+2026-01-20 10:17:08,878 | INFO | src.api | API initialized
+2026-01-20 10:20:25,726 | INFO | src.api | API initialized
+2026-01-20 10:20:39,315 | INFO | src.api | API initialized
+2026-01-20 10:20:44,760 | INFO | src.api | API initialized
+2026-01-20 10:24:13,412 | INFO | src.api | API initialized
+2026-01-20 10:24:26,613 | INFO | src.api | API initialized
+2026-01-20 10:24:39,288 | INFO | src.api | API initialized
+2026-01-20 10:29:14,678 | INFO | src.api | API initialized
+2026-01-20 10:32:18,645 | INFO | src.api | API initialized
+2026-01-20 10:34:19,836 | INFO | src.api | Prediction request received
+2026-01-20 10:34:19,837 | INFO | src.inference | Inference started
+2026-01-20 10:34:19,838 | ERROR | src.api | Prediction failed
+Traceback (most recent call last):
+  File "/home/jackeroo4m8/iris-mlops/src/api.py", line 36, in predict_iris
+    result = predict(input.model_dump())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jackeroo4m8/iris-mlops/src/inference.py", line 8, in predict
+    raise RuntimeError("FORCED INFERENCE FAILURE")
+RuntimeError: FORCED INFERENCE FAILURE
+2026-01-20 10:37:40,548 | INFO | src.api | API initialized
+2026-01-20 10:38:00,050 | INFO | src.api | API initialized
+2026-01-20 10:39:21,391 | INFO | src.api | Prediction request received
+2026-01-20 10:39:21,392 | INFO | src.inference | Inference started
+2026-01-20 10:39:21,392 | ERROR | src.api | Prediction failed
+Traceback (most recent call last):
+  File "/home/jackeroo4m8/iris-mlops/src/api.py", line 40, in predict_iris
+    result["class_label"]
+    ~~~~~~^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+2026-01-20 10:42:05,749 | INFO | src.api | API initialized
+2026-01-20 10:42:23,434 | INFO | src.api | Prediction request received
+2026-01-20 10:42:23,435 | INFO | src.inference | Starting Inference
+2026-01-20 10:42:23,453 | ERROR | src.api | Prediction failed
+Traceback (most recent call last):
+  File "/home/jackeroo4m8/iris-mlops/src/api.py", line 36, in predict_iris
+    result = predict(input.model_dump())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jackeroo4m8/iris-mlops/src/inference.py", line 44, in predict
+    model = load_model()
+            ^^^^^^^^^^^^
+  File "/home/jackeroo4m8/iris-mlops/src/inference.py", line 12, in load_model
+    return joblib.load(MODEL_PATH)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jackeroo4m8/iris-mlops/.venv/lib/python3.12/site-packages/joblib/numpy_pickle.py", line 735, in load
+    with open(filename, "rb") as f:
+         ^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'models/iris_model_wrong.pkl'
+2026-01-20 23:34:19,567 | INFO | src.api | API initialized
+2026-01-20 23:35:09,051 | INFO | src.api | Prediction request received
+2026-01-20 23:35:09,052 | INFO | src.inference | Starting Inference
+2026-01-20 23:35:09,078 | ERROR | src.api | Prediction failed
+Traceback (most recent call last):
+  File "/home/jackeroo4m8/iris-mlops/src/api.py", line 36, in predict_iris
+    result = predict(input.model_dump())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jackeroo4m8/iris-mlops/src/inference.py", line 44, in predict
+    model = load_model()
+            ^^^^^^^^^^^^
+  File "/home/jackeroo4m8/iris-mlops/src/inference.py", line 12, in load_model
+    return joblib.load(MODEL_PATH)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jackeroo4m8/iris-mlops/.venv/lib/python3.12/site-packages/joblib/numpy_pickle.py", line 735, in load
+    with open(filename, "rb") as f:
+         ^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'models/iris_model_wrong.pkl'
+2026-01-20 23:35:39,159 | INFO | src.api | API initialized
+2026-01-20 23:36:10,735 | INFO | src.api | API initialized
+2026-01-20 23:36:51,065 | INFO | src.api | Prediction request received
+2026-01-20 23:36:51,065 | INFO | src.inference | Starting Inference
+2026-01-20 23:36:51,454 | INFO | src.inference | Prediction completed | index=0 label=setosa
+2026-01-20 23:36:51,454 | ERROR | src.api | Prediction failed
+Traceback (most recent call last):
+  File "/home/jackeroo4m8/iris-mlops/src/api.py", line 36, in predict_iris
+    result = predict(input.model_dump())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jackeroo4m8/iris-mlops/src/inference.py", line 58, in predict
+    "class_label": prediction
+                   ^^^^^^^^^^
+NameError: name 'prediction' is not defined. Did you mean: 'predict'?
+2026-01-20 23:36:53,865 | INFO | src.api | Prediction request received
+2026-01-20 23:36:53,866 | INFO | src.inference | Starting Inference
+2026-01-20 23:36:53,930 | INFO | src.inference | Prediction completed | index=0 label=setosa
+2026-01-20 23:36:53,930 | ERROR | src.api | Prediction failed
+Traceback (most recent call last):
+  File "/home/jackeroo4m8/iris-mlops/src/api.py", line 36, in predict_iris
+    result = predict(input.model_dump())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jackeroo4m8/iris-mlops/src/inference.py", line 58, in predict
+    "class_label": prediction
+                   ^^^^^^^^^^
+NameError: name 'prediction' is not defined. Did you mean: 'predict'?
+2026-01-20 23:44:09,753 | INFO | src.api | API initialized
+2026-01-20 23:44:12,694 | INFO | src.api | API initialized
+2026-01-20 23:44:39,088 | INFO | src.api | Prediction request received
+2026-01-20 23:44:39,088 | INFO | src.inference | Starting Inference
+2026-01-20 23:44:39,318 | INFO | src.inference | Prediction completed | index=0 label=setosa
+2026-01-20 23:44:39,319 | INFO | src.api | Prediction response sent | class=setosa
+2026-01-20 23:47:57,874 | INFO | src.api | Prediction request received
+2026-01-20 23:47:57,874 | INFO | src.inference | Starting Inference
+2026-01-20 23:47:57,949 | INFO | src.inference | Prediction completed | index=0 label=setosa
+2026-01-20 23:47:57,949 | INFO | src.api | Prediction response sent | class=setosa
+2026-01-20 23:53:22,562 | INFO | src.api | Prediction request received
+2026-01-20 23:53:22,563 | INFO | src.inference | Starting Inference
+2026-01-20 23:53:22,645 | INFO | src.inference | Prediction completed | index=0 label=setosa
+2026-01-20 23:53:22,645 | INFO | src.api | Prediction response sent | class=setosa
+2026-01-20 23:59:02,326 | INFO | src.api | Prediction request received
+2026-01-20 23:59:02,326 | INFO | src.inference | Starting Inference
+2026-01-20 23:59:02,400 | INFO | src.inference | Prediction completed | index=2 label=virginica
+2026-01-20 23:59:02,400 | INFO | src.api | Prediction response sent | class=virginica
+2026-01-20 23:59:26,408 | INFO | src.api | Prediction request received
+2026-01-20 23:59:26,408 | INFO | src.inference | Starting Inference
+2026-01-20 23:59:26,459 | INFO | src.inference | Prediction completed | index=2 label=virginica
+2026-01-20 23:59:26,460 | INFO | src.api | Prediction response sent | class=virginica
