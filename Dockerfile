@@ -4,7 +4,8 @@ FROM python:3.11-slim
 # Python runtime settings
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    PYTHONPATH=/app
+    PYTHONPATH=/app \
+    WORKERS=2
 
 # Working directory inside container
 WORKDIR /app
@@ -20,5 +21,5 @@ COPY models/ models/
 # Application port
 EXPOSE 8000
 
-# Start FastAPI App
-CMD ["python", "-m", "uvicorn", "src.api:app", "--host", "0.0.0.0", "--port", "8000"]
+# Start FastAPI App (Production Runtime)
+CMD ["sh", "-c", "gunicorn src.api:app -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000 --workers ${WORKERS}"]

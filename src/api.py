@@ -8,7 +8,12 @@ from src.request_id import RequestIDMiddleware
 logger = get_logger(__name__)
 
 app = FastAPI(title="Iris ML API")
+
 app.add_middleware(RequestIDMiddleware)
+
+@app.on_event("shutdown")
+def shutdown_event():
+    logger.info("API shutting down gracefully")
 
 logger.info("API initialized")
 
@@ -24,6 +29,13 @@ class IrisInput(BaseModel):
 def health_check():
     return {"status": "ok"}
 
+@app.get("/health")
+def health_check():
+    return {"status": "healthy"}
+
+@app.get("/ready")
+def readiness_check():
+    return {"status": "ready"}
 
 @app.post("/predict")
 def predict_iris(input: IrisInput):
