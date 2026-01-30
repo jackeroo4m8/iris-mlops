@@ -1,3 +1,6 @@
+import signal
+import sys
+
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
@@ -64,3 +67,10 @@ def predict_iris(input: IrisInput):
             status_code=500,
             detail=str(e)
         )
+    
+def handle_shutdown_signal(signum, frame):
+    logger.info(f"Shutdown signal received: {signum}")
+    sys.exit(0)
+
+signal.signal(signal.SIGTERM, handle_shutdown_signal)
+signal.signal(signal.SIGINT, handle_shutdown_signal)
