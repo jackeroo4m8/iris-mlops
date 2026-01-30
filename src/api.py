@@ -11,9 +11,13 @@ app = FastAPI(title="Iris ML API")
 
 app.add_middleware(RequestIDMiddleware)
 
+@app.on_event("startup")
+def startup_event():
+    logger.info("API startup")
+
 @app.on_event("shutdown")
 def shutdown_event():
-    logger.info("API shutting down gracefully")
+    logger.info("API shutdown")
 
 logger.info("API initialized")
 
@@ -26,16 +30,20 @@ class IrisInput(BaseModel):
 
 
 @app.get("/")
-def health_check():
+def root():
     return {"status": "ok"}
 
 @app.get("/health")
-def health_check():
+def health():
     return {"status": "healthy"}
 
 @app.get("/ready")
-def readiness_check():
+def readiness():
     return {"status": "ready"}
+
+@app.get("/startup")
+def startup():
+    return {"status": "started"}
 
 @app.post("/predict")
 def predict_iris(input: IrisInput):
@@ -50,9 +58,9 @@ def predict_iris(input: IrisInput):
         )
         return result
 
-    except Exception:
+    except Exception as e:
         logger.exception("Prediction failed")
         raise HTTPException(
             status_code=500,
-            detail="Internal server error during prediction"
+            detail=str(e)
         )
