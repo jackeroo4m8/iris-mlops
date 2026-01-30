@@ -5,6 +5,7 @@ FROM python:3.11-slim
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PYTHONPATH=/app \
+    APP_PORT=8000 \
     WORKERS=2
 
 # Working directory inside container
@@ -22,4 +23,4 @@ COPY models/ models/
 EXPOSE 8000
 
 # Start FastAPI App (Production Runtime)
-CMD ["sh", "-c", "gunicorn src.api:app -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000 --workers ${WORKERS}"]
+CMD ["sh", "-c", "gunicorn src.api:app -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:${APP_PORT} --workers ${WORKERS}"]
