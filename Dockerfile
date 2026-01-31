@@ -27,4 +27,5 @@ CMD ["sh", "-c", "gunicorn src.api:app \
   -k uvicorn.workers.UvicornWorker \
   --bind 0.0.0.0:${APP_PORT} \
   --workers ${WORKERS} \
-  --timeout 30"]
+  --timeout 30 \
+  --worker-connections 100"]
