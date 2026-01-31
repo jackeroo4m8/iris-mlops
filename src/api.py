@@ -1,7 +1,6 @@
-import signal
-import sys
+import time
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from pydantic import BaseModel
 
 from src.inference import predict
@@ -14,15 +13,27 @@ app = FastAPI(title="Iris ML API")
 
 app.add_middleware(RequestIDMiddleware)
 
+service_ready = False
+
 @app.on_event("startup")
 def startup_event():
+    global service_ready
     logger.info("API startup")
+    service_ready = True
 
 @app.on_event("shutdown")
 def shutdown_event():
     logger.info("API shutdown")
 
 logger.info("API initialized")
+
+@app.middleware("http")
+async def add_middleware(request: Request, call_next):
+    start_time = time.time()
+    response = await call_next(request)
+    duration = time.time() - start_time
+    logger.info(f"Request processed in {duration:.2f} seconds | path={request.url.path}")
+    return response
 
 
 class IrisInput(BaseModel):
@@ -42,11 +53,10 @@ def health():
 
 @app.get("/ready")
 def readiness():
+    if not service_ready:
+        raise HTTPException(status_code=503, detail="Service not ready")
     return {"status": "ready"}
 
-@app.get("/startup")
-def startup():
-    return {"status": "started"}
 
 @app.post("/predict")
 def predict_iris(input: IrisInput):
@@ -67,10 +77,3 @@ def predict_iris(input: IrisInput):
             status_code=500,
             detail=str(e)
         )
-    
-def handle_shutdown_signal(signum, frame):
-    logger.info(f"Shutdown signal received: {signum}")
-    sys.exit(0)
-
-signal.signal(signal.SIGTERM, handle_shutdown_signal)
-signal.signal(signal.SIGINT, handle_shutdown_signal)
