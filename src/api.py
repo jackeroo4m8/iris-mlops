@@ -1,5 +1,6 @@
 import time
 
+from collections import defaultdict
 from fastapi import FastAPI, HTTPException, Request
 from pydantic import BaseModel
 
@@ -10,10 +11,16 @@ from src.request_id import RequestIDMiddleware
 logger = get_logger(__name__)
 
 app = FastAPI(title="Iris ML API")
+logger.info("API initialized")
 
 app.add_middleware(RequestIDMiddleware)
 
 service_ready = False
+
+REQUEST_LIMIT = 100    # Requests per minute
+WINDOW = 60
+request_timestamps = defaultdict(list)
+
 
 @app.on_event("startup")
 def startup_event():
@@ -21,11 +28,11 @@ def startup_event():
     logger.info("API startup")
     service_ready = True
 
+
 @app.on_event("shutdown")
 def shutdown_event():
     logger.info("API shutdown")
 
-logger.info("API initialized")
 
 @app.middleware("http")
 async def add_middleware(request: Request, call_next):
@@ -35,6 +42,24 @@ async def add_middleware(request: Request, call_next):
     logger.info(f"Request processed in {duration:.2f} seconds | path={request.url.path}")
     return response
 
+
+@app.middleware("http")
+async def rate_limit_middleware(request: Request, call_next):
+    ip = request.client.host
+    now = time.time()
+
+    # Remove old requests
+    request_timestamps[ip] = [
+        t for t in request_timestamps[ip] 
+        if now - t < WINDOW
+    ] 
+
+    if len(request_timestamps[ip]) >= REQUEST_LIMIT:
+        logger.warning(f"Rate limit exceeded | ip={ip}")
+        raise HTTPException(status_code=429, detail="Rate limit exceeded")
+    
+    request_timestamps[ip].append(now)
+    return await call_next(request)
 
 class IrisInput(BaseModel):
     sepal_length: float
@@ -47,9 +72,11 @@ class IrisInput(BaseModel):
 def root():
     return {"status": "ok"}
 
+
 @app.get("/health")
 def health():
     return {"status": "healthy"}
+
 
 @app.get("/ready")
 def readiness():
