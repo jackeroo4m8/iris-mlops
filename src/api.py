@@ -75,7 +75,6 @@ def root():
 
 @app.get("/health")
 def health():
-    logger.info("Health check requested")
     return {"status": "healthy"}
 
 

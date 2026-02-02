@@ -27,13 +27,11 @@ def get_logger(name: str) -> logging.Logger:
     logger = logging.getLogger(name)
     logger.setLevel(logging.INFO)
 
-    handler = logging.StreamHandler(sys.stdout)
-    handler.setFormatter(JsonFormatter())
-    handler.addFilter(RequestIDFilter())
 
-    # Prevent duplicate handlers
     if not logger.handlers:
+        handler = logging.StreamHandler(sys.stdout)
+        handler.setFormatter(JsonFormatter())
+        handler.addFilter(RequestIDFilter())
         logger.addHandler(handler)
 
-    logger.propagate = False
     return logger
