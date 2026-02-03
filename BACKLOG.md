@@ -1,36 +1,17 @@
-# Project Backlog – iris-mlops
+## Done
+- Production runtime with Gunicorn
+- Multi-worker scaling
+- CI/CD with GHCR
+- Health & readiness probes
+- Request timing
+- Rate limiting
+- Resource limits
 
-## Core Bugs
-- [ ] Fix RequestID middleware execution
-- [ ] Fix small API bug in inference flow
+## Deferred
+- Cloud deployment (AWS ECS)
+- Centralized metrics (Prometheus)
+- External rate limiting (Redis)
 
-## Observability
-- [ ] Structured JSON logging
-- [ ] Request ID propagation in logs
-- [ ] Correlation IDs
-- [ ] Error classification logging
-
-## Runtime
-- [ ] Worker tuning
-- [ ] Graceful shutdown validation
-- [ ] Startup lifecycle hooks
-- [ ] Memory limits
-- [ ] CPU limits
-
-## Health System
-- [ ] Health checks
-- [ ] Readiness probes
-- [ ] Startup probes
-- [ ] Dependency checks
-
-## CI/CD
-- [ ] Linting
-- [ ] Unit tests
-- [ ] Security scanning
-- [ ] Version tagging strategy
-
-## Deployment (Blocked – AWS identity)
-- [ ] ECS Fargate deployment
-- [ ] Load balancer setup
-- [ ] Auto-scaling policies
-- [ ] HTTPS config
+## Known issues
+- Minor API refactor needed
+- Request ID middleware polish

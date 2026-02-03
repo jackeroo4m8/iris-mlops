@@ -23,9 +23,7 @@ scikit-learn model and follows real-world backend and MLOps best practices.
 
 ---
 
-to this:
 
-```md
 ## Project Structure
 
 ```text
