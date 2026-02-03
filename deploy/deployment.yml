@@ -12,8 +12,10 @@ spec:
       labels:
         app: iris-inference
     spec:
+      terminationGracePeriodSeconds: 30
       containers:
         - name: iris-inference
+        # In production, prefer immutable tags (commit SHA)
           image: ghcr.io/jackeroo4m8/iris-mlops:latest
           ports:
             - containerPort: 8000
