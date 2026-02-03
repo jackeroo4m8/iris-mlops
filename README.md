@@ -99,3 +99,7 @@ Response:
 - No persistent storage (stateless service)
 - In-memory rate limiting (no Redis)
 - Metrics are local (not Prometheus-integrated yet)
+
+## Deployment
+
+Infrastructure and deployment manifests are documented under `deploy/`.
