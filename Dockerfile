@@ -23,9 +23,13 @@ COPY models/ models/
 EXPOSE 8000
 
 # Start FastAPI App (Production Runtime)
-CMD ["sh", "-c", "gunicorn src.api:app \
+CMD ["sh", "-c", " \
+gunicorn src.api:app \
   -k uvicorn.workers.UvicornWorker \
   --bind 0.0.0.0:${APP_PORT} \
   --workers ${WORKERS} \
   --timeout 30 \
-  --worker-connections 100"]
+  --worker-connections 100 \
+  --capture-output \
+  --log-level info \
+  "]
